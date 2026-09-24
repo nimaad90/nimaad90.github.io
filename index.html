@@ -155,68 +155,31 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem
    ۱) فقط این بخش را ویرایش کنید. بقیه فایل نیازی به تغییر ندارد.
    ============================================================ */
 const SITE = {
-  name: "امین",
+  name: "نام شما",
   title: "توسعه‌دهنده‌ای که ایده را به محصول تبدیل می‌کند",
   bio: "من روی ساخت وب‌سایت‌ها و ابزارهای کاربردی کار می‌کنم. اینجا پروژه‌ها و نمونه کدهایم را می‌بینید.",
   about: "این متن را با معرفی خودتان عوض کنید: چه کاری می‌کنید، چه چیزی یاد می‌گیرید و به چه نوع پروژه‌هایی علاقه دارید.",
   skills: ["JavaScript", "Python", "HTML و CSS", "React", "Git", "SQL"],
-  email: "my@temp.mail",
-  github: "https://github.com/nimaad90/home",
+  email: "you@example.com",
+  github: "https://github.com/your-username",
   linkedin: ""            // خالی بگذارید تا نمایش داده نشود
 };
 
-// هر پروژه یک آبجکت است. featured:true یعنی کارت بزرگ‌تر نمایش داده شود.
-const PROJECTS = [
-  { title: "اپلیکیشن مدیریت وظایف", desc: "برنامه‌ای برای ثبت کارها با دسته‌بندی، جست‌وجو و ذخیره در مرورگر.",
-    tags: ["وب", "JavaScript"], demo: "https://example.com", code: "https://github.com/your-username/todo-app", featured: true },
-  { title: "ربات تلگرام یادآور", desc: "ربات پایتونی که یادآورهای زمان‌بندی‌شده می‌فرستد.",
-    tags: ["Python", "ربات"], code: "https://github.com/your-username/reminder-bot" },
-  { title: "داشبورد تحلیل داده", desc: "نمودارهای تعاملی از فایل CSV با فیلتر و خروجی گرفتن.",
-    tags: ["وب", "داده"], demo: "https://example.com", code: "https://github.com/your-username/dashboard" },
-  { title: "کتابخانه ابزارهای متنی", desc: "توابع کوچک برای کار با متن فارسی مثل تبدیل اعداد و نرمال‌سازی.",
-    tags: ["JavaScript", "کتابخانه"], code: "https://github.com/your-username/fa-text" }
-];
-
-// نمونه کد: یا مستقیم در code بنویسید، یا مسیر فایلی از همین مخزن را در src بدهید (مثلاً "samples/debounce.js").
-const SNIPPETS = [
-  { file: "debounce.js", lang: "js", desc: "تابعی که اجرای پشت‌سرهم یک کار را تا مکث کاربر به تعویق می‌اندازد.",
-    code: `// اجرای تابع فقط بعد از توقف رویدادها
-function debounce(fn, wait = 300) {
-  let timer;
-  return (...args) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => fn(...args), wait);
-  };
-}
-
-const onSearch = debounce((q) => console.log("search:", q), 400);
-onSearch("portfolio");` },
-  { file: "wordcount.py", lang: "py", desc: "شمارش پرتکرارترین کلمه‌های یک متن با پایتون.",
-    code: `# پرتکرارترین کلمه‌ها در یک فایل
-from collections import Counter
-import re
-
-def top_words(path, n=5):
-    text = open(path, encoding="utf-8").read().lower()
-    words = re.findall(r"\\w+", text)
-    return Counter(words).most_common(n)
-
-print(top_words("notes.txt"))` },
-  { file: "card.css", lang: "css", desc: "کارت ریسپانسیو بدون هیچ کتابخانه‌ای.",
-    code: `/* شبکه‌ای که خودش تعداد ستون را تنظیم می‌کند */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1rem;
-}
-.card { padding: 1.25rem; border-radius: 12px; }` }
-];
+// پروژه‌ها و نمونه کدها از فایل projects.json خوانده می‌شوند (با صفحه admin.html ویرایش کنید)
+let PROJECTS = [], SNIPPETS = [];
 
 /* ============================================================
    ۲) منطق سایت
    ============================================================ */
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+
+async function main() {
+try {
+  const r = await fetch("projects.json", { cache: "no-store" });
+  const d = await r.json();
+  PROJECTS = d.projects || []; SNIPPETS = d.snippets || [];
+} catch (e) { console.warn("projects.json خوانده نشد", e); }
 
 // متن‌های ثابت
 document.title = `پورتفولیو | ${SITE.name}`;
@@ -297,6 +260,8 @@ $("copy").onclick = async () => {
   setTimeout(() => $("copy").textContent = "کپی", 1600);
 };
 if (SNIPPETS.length) showSnippet(0);
+}
+main();
 </script>
 </body>
 </html>

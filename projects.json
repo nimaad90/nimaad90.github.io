@@ -1,0 +1,63 @@
+{
+  "projects": [
+    {
+      "title": "اپلیکیشن مدیریت وظایف",
+      "desc": "برنامه‌ای برای ثبت کارها با دسته‌بندی، جست‌وجو و ذخیره در مرورگر.",
+      "tags": [
+        "وب",
+        "JavaScript"
+      ],
+      "demo": "https://example.com",
+      "code": "https://github.com/your-username/todo-app",
+      "featured": true
+    },
+    {
+      "title": "ربات تلگرام یادآور",
+      "desc": "ربات پایتونی که یادآورهای زمان‌بندی‌شده می‌فرستد.",
+      "tags": [
+        "Python",
+        "ربات"
+      ],
+      "code": "https://github.com/your-username/reminder-bot"
+    },
+    {
+      "title": "داشبورد تحلیل داده",
+      "desc": "نمودارهای تعاملی از فایل CSV با فیلتر و خروجی گرفتن.",
+      "tags": [
+        "وب",
+        "داده"
+      ],
+      "demo": "https://example.com",
+      "code": "https://github.com/your-username/dashboard"
+    },
+    {
+      "title": "کتابخانه ابزارهای متنی",
+      "desc": "توابع کوچک برای کار با متن فارسی مثل تبدیل اعداد و نرمال‌سازی.",
+      "tags": [
+        "JavaScript",
+        "کتابخانه"
+      ],
+      "code": "https://github.com/your-username/fa-text"
+    }
+  ],
+  "snippets": [
+    {
+      "file": "debounce.js",
+      "lang": "js",
+      "desc": "تابعی که اجرای پشت‌سرهم یک کار را تا مکث کاربر به تعویق می‌اندازد.",
+      "code": "// اجرای تابع فقط بعد از توقف رویدادها\nfunction debounce(fn, wait = 300) {\n  let timer;\n  return (...args) => {\n    clearTimeout(timer);\n    timer = setTimeout(() => fn(...args), wait);\n  };\n}\n\nconst onSearch = debounce((q) => console.log(\"search:\", q), 400);\nonSearch(\"portfolio\");"
+    },
+    {
+      "file": "wordcount.py",
+      "lang": "py",
+      "desc": "شمارش پرتکرارترین کلمه‌های یک متن با پایتون.",
+      "code": "# پرتکرارترین کلمه‌ها در یک فایل\nfrom collections import Counter\nimport re\n\ndef top_words(path, n=5):\n    text = open(path, encoding=\"utf-8\").read().lower()\n    words = re.findall(r\"\\w+\", text)\n    return Counter(words).most_common(n)\n\nprint(top_words(\"notes.txt\"))"
+    },
+    {
+      "file": "card.css",
+      "lang": "css",
+      "desc": "کارت ریسپانسیو بدون هیچ کتابخانه‌ای.",
+      "code": "/* شبکه‌ای که خودش تعداد ستون را تنظیم می‌کند */\n.cards {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1rem;\n}\n.card { padding: 1.25rem; border-radius: 12px; }"
+    }
+  ]
+}
