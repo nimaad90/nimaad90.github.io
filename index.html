@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>پورتفولیو | نام شما</title>
+<meta name="description" content="نمونه پروژه‌ها و کدهای من">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap">
+<style>
+:root{
+  --bg:#F2F4F8;--surface:#fff;--ink:#10182B;--muted:#5A6478;--accent:#2F4BFF;--accent-ink:#fff;--line:#DCE1EA;
+  --code-bg:#0B1020;--code-ink:#DCE4FF;--c-com:#6B7794;--c-str:#9FE0B5;--c-kw:#9DB0FF;--c-num:#F2B880;
+  --font:"Vazirmatn",system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0D1220;--surface:#151C30;--ink:#E8ECF6;--muted:#93A0BA;--accent:#7C93FF;--accent-ink:#0D1220;--line:#263049;--code-bg:#080C18}}
+:root[data-theme="dark"]{
+  --bg:#0D1220;--surface:#151C30;--ink:#E8ECF6;--muted:#93A0BA;--accent:#7C93FF;--accent-ink:#0D1220;--line:#263049;--code-bg:#080C18}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.9;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 1.25rem}
+section{padding:4.5rem 0 1rem}
+h2{font-size:1.6rem;font-weight:800;margin-bottom:.4rem}
+.sub{color:var(--muted);max-width:60ch;margin-bottom:1.75rem}
+
+/* header */
+header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:4rem}
+.logo{font-weight:800;text-decoration:none}
+nav{display:flex;align-items:center;gap:1.25rem}
+nav a{text-decoration:none;color:var(--muted);font-size:.95rem;font-weight:500}
+nav a:hover{color:var(--ink)}
+.icon-btn{background:none;border:1px solid var(--line);color:var(--ink);width:2.4rem;height:2.4rem;border-radius:50%;cursor:pointer;font-size:1.05rem}
+@media(max-width:600px){nav a{display:none}}
+
+/* hero */
+.hero{padding:5rem 0 1rem}
+.hero h1{font-size:clamp(2.4rem,7.5vw,5.2rem);font-weight:800;line-height:1.3;letter-spacing:-.01em;max-width:16ch}
+.hero p{font-size:1.15rem;color:var(--muted);max-width:52ch;margin:1.5rem 0 2rem}
+.row{display:flex;flex-wrap:wrap;gap:.75rem}
+.btn{display:inline-block;padding:.65rem 1.4rem;border-radius:10px;font-weight:700;text-decoration:none;border:1px solid var(--line);background:var(--surface);cursor:pointer;font:inherit;font-weight:700;color:var(--ink)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn:hover{border-color:var(--accent)}
+
+/* projects */
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem}
+.chip{border:1px solid var(--line);background:transparent;color:var(--muted);padding:.25rem .95rem;border-radius:99px;cursor:pointer;font:inherit;font-size:.9rem}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.1rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.4rem;display:flex;flex-direction:column;gap:.7rem}
+.card.feat{grid-column:1/-1;border-inline-start:5px solid var(--accent);border-radius:6px 14px 14px 6px}
+.card h3{font-size:1.15rem;font-weight:700}
+.card p{color:var(--muted);font-size:.95rem;flex:1}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.tags span{font-size:.8rem;color:var(--muted);background:var(--bg);padding:0 .6rem;border-radius:6px}
+.links{display:flex;gap:1rem;font-weight:700;font-size:.95rem}
+.links a{color:var(--accent)}
+.empty{grid-column:1/-1;color:var(--muted);padding:2rem;text-align:center;border:1px dashed var(--line);border-radius:14px}
+
+/* code viewer */
+.viewer{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--code-bg);direction:ltr}
+.vbar{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff1a;padding:0 .5rem 0 0}
+.tabs{display:flex;overflow-x:auto}
+.tab{background:none;border:0;color:#8f9bbd;padding:.8rem 1.1rem;font:500 .85rem var(--mono);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent}
+.tab[aria-selected="true"]{color:#fff;border-bottom-color:var(--accent)}
+.copy{background:#ffffff14;border:0;color:#dce4ff;font:500 .8rem var(--font);padding:.3rem .8rem;border-radius:6px;cursor:pointer}
+pre{margin:0;padding:1.25rem 1.4rem;overflow-x:auto;color:var(--code-ink);font:.88rem/1.75 var(--mono);tab-size:2;min-height:12rem;max-height:30rem}
+.vdesc{direction:rtl;color:var(--muted);margin-top:.9rem;font-size:.95rem}
+.k{color:var(--c-kw)}.s{color:var(--c-str)}.c{color:var(--c-com);font-style:italic}.n{color:var(--c-num)}
+
+/* about */
+.about{display:grid;grid-template-columns:1.3fr 1fr;gap:2rem}
+@media(max-width:760px){.about{grid-template-columns:1fr}}
+.skills{display:flex;flex-wrap:wrap;gap:.5rem;align-content:flex-start}
+.skills span{border:1px solid var(--line);background:var(--surface);padding:.2rem .9rem;border-radius:8px;font-size:.92rem}
+footer{margin-top:5rem;border-top:1px solid var(--line);padding:1.75rem 0;color:var(--muted);font-size:.9rem}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top" id="logo"></a>
+    <nav aria-label="منوی اصلی">
+      <a href="#projects">پروژه‌ها</a>
+      <a href="#code">نمونه کد</a>
+      <a href="#about">درباره من</a>
+      <a href="#contact">ارتباط</a>
+      <button class="icon-btn" id="theme" aria-label="تغییر حالت روشن و تیره">◐</button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <h1 id="h-title"></h1>
+    <p id="h-bio"></p>
+    <div class="row">
+      <a class="btn primary" href="#projects">دیدن پروژه‌ها</a>
+      <a class="btn" href="#code">نمونه کدها</a>
+    </div>
+  </div>
+
+  <section id="projects"><div class="wrap">
+    <h2>پروژه‌ها</h2>
+    <p class="sub">چند کار که روی آن‌ها وقت گذاشته‌ام. با برچسب‌ها فیلتر کنید.</p>
+    <div class="chips" id="chips" role="group" aria-label="فیلتر پروژه‌ها"></div>
+    <div class="grid" id="grid"></div>
+  </div></section>
+
+  <section id="code"><div class="wrap">
+    <h2>نمونه کد</h2>
+    <p class="sub">تکه‌کدهایی که نوع فکر و سبک نوشتن من را نشان می‌دهند.</p>
+    <div class="viewer">
+      <div class="vbar">
+        <div class="tabs" id="tabs" role="tablist"></div>
+        <button class="copy" id="copy">کپی</button>
+      </div>
+      <pre><code id="code-out"></code></pre>
+    </div>
+    <p class="vdesc" id="vdesc"></p>
+  </div></section>
+
+  <section id="about"><div class="wrap about">
+    <div>
+      <h2>درباره من</h2>
+      <p id="about-text" class="sub" style="max-width:none"></p>
+    </div>
+    <div class="skills" id="skills" aria-label="مهارت‌ها"></div>
+  </div></section>
+
+  <section id="contact"><div class="wrap">
+    <h2>ارتباط</h2>
+    <p class="sub">برای همکاری یا سؤال درباره پروژه‌ها پیام بدهید.</p>
+    <div class="row" id="contact-links"></div>
+  </div></section>
+</main>
+
+<footer><div class="wrap">
+  <span id="foot"></span>
+  <span>ساخته‌شده با HTML، CSS و JavaScript</span>
+</div></footer>
+
+<script>
+/* ============================================================
+   ۱) فقط این بخش را ویرایش کنید. بقیه فایل نیازی به تغییر ندارد.
+   ============================================================ */
+const SITE = {
+  name: "امین",
+  title: "توسعه‌دهنده‌ای که ایده را به محصول تبدیل می‌کند",
+  bio: "من روی ساخت وب‌سایت‌ها و ابزارهای کاربردی کار می‌کنم. اینجا پروژه‌ها و نمونه کدهایم را می‌بینید.",
+  about: "این متن را با معرفی خودتان عوض کنید: چه کاری می‌کنید، چه چیزی یاد می‌گیرید و به چه نوع پروژه‌هایی علاقه دارید.",
+  skills: ["JavaScript", "Python", "HTML و CSS", "React", "Git", "SQL"],
+  email: "my@temp.mail",
+  github: "https://github.com/nimaad90/home",
+  linkedin: ""            // خالی بگذارید تا نمایش داده نشود
+};
+
+// هر پروژه یک آبجکت است. featured:true یعنی کارت بزرگ‌تر نمایش داده شود.
+const PROJECTS = [
+  { title: "اپلیکیشن مدیریت وظایف", desc: "برنامه‌ای برای ثبت کارها با دسته‌بندی، جست‌وجو و ذخیره در مرورگر.",
+    tags: ["وب", "JavaScript"], demo: "https://example.com", code: "https://github.com/your-username/todo-app", featured: true },
+  { title: "ربات تلگرام یادآور", desc: "ربات پایتونی که یادآورهای زمان‌بندی‌شده می‌فرستد.",
+    tags: ["Python", "ربات"], code: "https://github.com/your-username/reminder-bot" },
+  { title: "داشبورد تحلیل داده", desc: "نمودارهای تعاملی از فایل CSV با فیلتر و خروجی گرفتن.",
+    tags: ["وب", "داده"], demo: "https://example.com", code: "https://github.com/your-username/dashboard" },
+  { title: "کتابخانه ابزارهای متنی", desc: "توابع کوچک برای کار با متن فارسی مثل تبدیل اعداد و نرمال‌سازی.",
+    tags: ["JavaScript", "کتابخانه"], code: "https://github.com/your-username/fa-text" }
+];
+
+// نمونه کد: یا مستقیم در code بنویسید، یا مسیر فایلی از همین مخزن را در src بدهید (مثلاً "samples/debounce.js").
+const SNIPPETS = [
+  { file: "debounce.js", lang: "js", desc: "تابعی که اجرای پشت‌سرهم یک کار را تا مکث کاربر به تعویق می‌اندازد.",
+    code: `// اجرای تابع فقط بعد از توقف رویدادها
+function debounce(fn, wait = 300) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), wait);
+  };
+}
+
+const onSearch = debounce((q) => console.log("search:", q), 400);
+onSearch("portfolio");` },
+  { file: "wordcount.py", lang: "py", desc: "شمارش پرتکرارترین کلمه‌های یک متن با پایتون.",
+    code: `# پرتکرارترین کلمه‌ها در یک فایل
+from collections import Counter
+import re
+
+def top_words(path, n=5):
+    text = open(path, encoding="utf-8").read().lower()
+    words = re.findall(r"\\w+", text)
+    return Counter(words).most_common(n)
+
+print(top_words("notes.txt"))` },
+  { file: "card.css", lang: "css", desc: "کارت ریسپانسیو بدون هیچ کتابخانه‌ای.",
+    code: `/* شبکه‌ای که خودش تعداد ستون را تنظیم می‌کند */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+.card { padding: 1.25rem; border-radius: 12px; }` }
+];
+
+/* ============================================================
+   ۲) منطق سایت
+   ============================================================ */
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+
+// متن‌های ثابت
+document.title = `پورتفولیو | ${SITE.name}`;
+$("logo").textContent = SITE.name;
+$("h-title").textContent = SITE.title;
+$("h-bio").textContent = SITE.bio;
+$("about-text").textContent = SITE.about;
+$("foot").textContent = `© ${new Date().getFullYear().toLocaleString("fa-IR",{useGrouping:false})} ${SITE.name}`;
+$("skills").innerHTML = SITE.skills.map(s => `<span>${esc(s)}</span>`).join("");
+$("contact-links").innerHTML = [
+  SITE.email && `<a class="btn primary" href="mailto:${esc(SITE.email)}">ایمیل</a>`,
+  SITE.github && `<a class="btn" href="${esc(SITE.github)}" target="_blank" rel="noopener">گیت‌هاب</a>`,
+  SITE.linkedin && `<a class="btn" href="${esc(SITE.linkedin)}" target="_blank" rel="noopener">لینکدین</a>`
+].filter(Boolean).join("");
+
+// حالت روشن/تیره
+const root = document.documentElement;
+try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch (e) {}
+$("theme").onclick = () => {
+  const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme:dark)").matches;
+  root.dataset.theme = dark ? "light" : "dark";
+  try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
+};
+
+// پروژه‌ها و فیلتر
+let activeTag = "همه";
+function renderProjects() {
+  const list = PROJECTS.filter(p => activeTag === "همه" || p.tags.includes(activeTag));
+  $("grid").innerHTML = list.length ? list.map(p => `
+    <article class="card${p.featured ? " feat" : ""}">
+      <h3>${esc(p.title)}</h3>
+      <p>${esc(p.desc)}</p>
+      <div class="tags">${p.tags.map(t => `<span>${esc(t)}</span>`).join("")}</div>
+      <div class="links">
+        ${p.demo ? `<a href="${esc(p.demo)}" target="_blank" rel="noopener">نمایش زنده</a>` : ""}
+        ${p.code ? `<a href="${esc(p.code)}" target="_blank" rel="noopener">کد پروژه</a>` : ""}
+      </div>
+    </article>`).join("") : `<div class="empty">پروژه‌ای با این برچسب پیدا نشد. یک برچسب دیگر را امتحان کنید.</div>`;
+}
+const allTags = ["همه", ...new Set(PROJECTS.flatMap(p => p.tags))];
+$("chips").innerHTML = allTags.map(t => `<button class="chip" aria-pressed="${t === activeTag}">${esc(t)}</button>`).join("");
+$("chips").onclick = (e) => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  activeTag = b.textContent;
+  [...$("chips").children].forEach(c => c.setAttribute("aria-pressed", c === b));
+  renderProjects();
+};
+renderProjects();
+
+// رنگ‌آمیزی ساده کد
+const KW = "function|const|let|var|return|if|else|for|while|import|from|def|class|new|await|async|in|and|or|not|print|True|False|None|display|grid";
+const TOKEN = new RegExp(`(\\/\\/.*|#.*|\\/\\*[\\s\\S]*?\\*\\/)|("(?:[^"\\\\]|\\\\.)*"|'(?:[^'\\\\]|\\\\.)*'|\`(?:[^\`\\\\]|\\\\.)*\`)|\\b(${KW})\\b|\\b(\\d+(?:\\.\\d+)?)\\b`, "g");
+const highlight = (code) => esc(code).replace(TOKEN, (m, c, s, k, n) =>
+  c ? `<span class="c">${c}</span>` : s ? `<span class="s">${s}</span>` : k ? `<span class="k">${k}</span>` : `<span class="n">${n}</span>`);
+
+// نمایشگر نمونه کد
+let current = 0;
+async function showSnippet(i) {
+  current = i;
+  const sn = SNIPPETS[i];
+  [...$("tabs").children].forEach((t, j) => t.setAttribute("aria-selected", j === i));
+  $("vdesc").textContent = sn.desc || "";
+  if (sn.code == null && sn.src) {
+    $("code-out").textContent = "در حال بارگذاری…";
+    try { sn.code = await (await fetch(sn.src)).text(); }
+    catch (e) { sn.code = "// فایل پیدا نشد. مسیر src را بررسی کنید."; }
+  }
+  if (current === i) $("code-out").innerHTML = highlight(sn.code || "");
+}
+$("tabs").innerHTML = SNIPPETS.map((s, i) => `<button class="tab" role="tab" aria-selected="false">${esc(s.file)}</button>`).join("");
+$("tabs").onclick = (e) => {
+  const i = [...$("tabs").children].indexOf(e.target.closest(".tab"));
+  if (i > -1) showSnippet(i);
+};
+$("copy").onclick = async () => {
+  try { await navigator.clipboard.writeText($("code-out").textContent); $("copy").textContent = "کپی شد"; }
+  catch (e) { $("copy").textContent = "کپی نشد"; }
+  setTimeout(() => $("copy").textContent = "کپی", 1600);
+};
+if (SNIPPETS.length) showSnippet(0);
+</script>
+</body>
+</html>
